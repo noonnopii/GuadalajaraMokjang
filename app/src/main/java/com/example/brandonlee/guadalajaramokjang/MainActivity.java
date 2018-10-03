@@ -14,10 +14,15 @@ import android.hardware.usb.UsbInterface;
 import android.hardware.usb.UsbManager;
 import android.hardware.usb.UsbRequest;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.ToggleButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+
+import android.app.Activity;
+import android.widget.MediaController;
+import android.widget.VideoView;
 
 public class MainActivity extends AppCompatActivity implements Runnable{
 
@@ -40,20 +45,30 @@ public class MainActivity extends AppCompatActivity implements Runnable{
         setContentView(R.layout.activity_main);
 
 
-        buttonLed = (ToggleButton)findViewById(R.id.arduinoled);
-        buttonLed.setOnCheckedChangeListener(new OnCheckedChangeListener(){
+        buttonLed = (ToggleButton) findViewById(R.id.arduinoled);
+
+        buttonLed.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v){
+                startActivity(new Intent(MainActivity.this, VideoActivity.class));
+            }
+        });
+
+        /*
+        buttonLed.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
             @Override
             public void onCheckedChanged(CompoundButton buttonView,
                                          boolean isChecked) {
-                if(isChecked){
+                if (isChecked) {
                     sendCommand(CMD_LED_ON);
-                }else{
+                } else {
                     sendCommand(CMD_LED_OFF);
                 }
-            }});
+            }
+        });
 
-        usbManager = (UsbManager)getSystemService(Context.USB_SERVICE);
+        usbManager = (UsbManager) getSystemService(Context.USB_SERVICE);
+        */
     }
 
     @Override
@@ -163,5 +178,7 @@ public class MainActivity extends AppCompatActivity implements Runnable{
         }
 
     }
+
+
 
 }
